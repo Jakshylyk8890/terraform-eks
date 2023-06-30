@@ -1,9 +1,0 @@
-apiVersion: v1
-data:
-  clientId: amVua2lucw==
-  clientSecret: amVua2lucw==
-kind: Secret
-metadata:
-  name: jenkins-oidc-credentials
-  namespace: jenkins
-type: Opaque

@@ -1,0 +1,29 @@
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUMvakNDQWVhZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJek1EVXpNREUxTlRBek1Wb1hEVE16TURVeU56RTFOVEF6TVZvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTXBaClozd3RyMFBxeDlYM1dtaDhsVHlwa2VZclNoUENqOEdEblJBRXdRNmx0N1ZMWlQzeDYza3pua1dUdHVOL2IxOXYKc1BLT0JIbHQ2WUtqQldDVHlDejFXR3dYc20wVzBLM1hUbHozWWduWmgrQ3ZPWHNPY2xlZGtHWVk0ZmVDT3cyYQpzd0NYcFpJR3VjaFdLVVpLelFrZzRQRUVDd2hOY0hqUEVkUGcwc0RFb2hFdUYwUG5YWnR4aHY1WkszY2F3R2JJCkh6UEFiVzdxcFRveHRaMGZLVGNvU2dRQ0xUcU9KT3h2ZGplcEloclRKS2UwK1QzL1pxU1BoZ2dDVW1JVjJDajIKVUd3VzI0QjJaSG03dGdBRlM2US9obTRvajFMQjVKNit5WlFwOGFyaFZya0x5QVRYQi9vOWJacTcxbFBnNjhMYgpsc3FiUG56UjNxMi9qYmtSemxFQ0F3RUFBYU5aTUZjd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZERVN5d0xjTXptUkRGbnRIYXUvQVFlVVU0ekdNQlVHQTFVZEVRUU8KTUF5Q0NtdDFZbVZ5Ym1WMFpYTXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBRnJJK1YvSU5BWnJiMGZGVklCTQpHd1VlTXVEZkJydXo1bDZiMzVneTZaR25NSG51TE5kT0IyNytaM2dqdDVoYzdUQzlLSWFDVWRVbmZLaW9FM3ZSCmI1NEFLUStnRUJLbFVxbzdQYTBpQmZjWTFIQThrNVdiQnFQNnh5K2VHN1dMTVBpRFFsc3NFRFRIejBqZE51QzMKeFVSYjVWaVZTTVdpOE5zWlNiVlVzbUs5d0Q2R2ZMY3ZTekV1TU80VmRKV0wrbUJROU5YTG1CTTNFdXlvZkdSRwpMR2Y3WHU2QTZ4ZGhac3JFUGs4Qm9xeXMveklnV0lYUy9zOUZsc2RGV1p4R25WUGx0aGRMdjYwSTlSU2luL3QrCkQ3ZzVoaXdOUnJmWTFPcEcwNHAvY2JoQjkrN0RRU0F3VjJvOHdNRk9OcTJad0tDMEU1N2E0ZnUvbG1XMFVJak4KbFkwPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    server: https://D52048BD31652BCEDC21A6A2A11A2319.gr7.us-east-1.eks.amazonaws.com
+  name: arn:aws:eks:us-east-1:085935842926:cluster/second-altair
+contexts:
+- context:
+    cluster: arn:aws:eks:us-east-1:085935842926:cluster/second-altair
+    user: arn:aws:eks:us-east-1:085935842926:cluster/second-altair
+  name: arn:aws:eks:us-east-1:085935842926:cluster/second-altair
+current-context: arn:aws:eks:us-east-1:085935842926:cluster/second-altair
+kind: Config
+preferences: {}
+users:
+- name: arn:aws:eks:us-east-1:085935842926:cluster/second-altair
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      args:
+      - --region
+      - us-east-1
+      - eks
+      - get-token
+      - --cluster-name
+      - second-altair
+      - --output
+      - json
+      command: aws

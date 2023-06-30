@@ -1,0 +1,188 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubernetes.io/psp: eks.privileged
+    prometheus.io/path: /metrics
+    prometheus.io/port: "8085"
+    prometheus.io/scrape: "true"
+  creationTimestamp: "2023-06-07T18:50:21Z"
+  generateName: velero-584cc8fbf-
+  labels:
+    component: velero
+    deploy: velero
+    pod-template-hash: 584cc8fbf
+  name: velero-584cc8fbf-zn57p
+  namespace: velero
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: velero-584cc8fbf
+    uid: a2c1fd1d-f17c-4b63-a5ba-9909f8814916
+  resourceVersion: "11633"
+  uid: b57eddb4-983b-4e85-8c2b-36f149421945
+spec:
+  containers:
+  - args:
+    - server
+    - --features=
+    command:
+    - /velero
+    env:
+    - name: VELERO_SCRATCH_DIR
+      value: /scratch
+    - name: VELERO_NAMESPACE
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.namespace
+    - name: LD_LIBRARY_PATH
+      value: /plugins
+    - name: GOOGLE_APPLICATION_CREDENTIALS
+      value: /credentials/cloud
+    - name: AWS_SHARED_CREDENTIALS_FILE
+      value: /credentials/cloud
+    - name: AZURE_CREDENTIALS_FILE
+      value: /credentials/cloud
+    - name: ALIBABA_CLOUD_CREDENTIALS_FILE
+      value: /credentials/cloud
+    image: velero/velero:v1.9.0
+    imagePullPolicy: IfNotPresent
+    name: velero
+    ports:
+    - containerPort: 8085
+      name: metrics
+      protocol: TCP
+    resources:
+      limits:
+        cpu: "1"
+        memory: 512Mi
+      requests:
+        cpu: 500m
+        memory: 128Mi
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /plugins
+      name: plugins
+    - mountPath: /scratch
+      name: scratch
+    - mountPath: /credentials
+      name: cloud-credentials
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-zxkrj
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  initContainers:
+  - image: velero/velero-plugin-for-aws:v1.4.0
+    imagePullPolicy: IfNotPresent
+    name: velero-velero-plugin-for-aws
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /target
+      name: plugins
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-zxkrj
+      readOnly: true
+  nodeName: ip-10-0-144-203.ec2.internal
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: velero
+  serviceAccountName: velero
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - emptyDir: {}
+    name: plugins
+  - emptyDir: {}
+    name: scratch
+  - name: cloud-credentials
+    secret:
+      defaultMode: 420
+      secretName: cloud-credentials
+  - name: kube-api-access-zxkrj
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2023-06-07T18:50:26Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2023-06-07T18:50:27Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2023-06-07T18:50:27Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2023-06-07T18:50:21Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://733235c2d2b98f71efc00f2268544f849e57baef30b1b97f0ad68a0aa786b9a7
+    image: velero/velero:v1.9.0
+    imageID: docker-pullable://velero/velero@sha256:277fbfaf8dcf5d7bc5e0abc43020c6254e4ad00c9c00ec3473c7f06d85feba45
+    lastState: {}
+    name: velero
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2023-06-07T18:50:26Z"
+  hostIP: 10.0.144.203
+  initContainerStatuses:
+  - containerID: docker://6c189ef971febd616405be448caf2882ea8c47549063093f151fd0f67e9b9545
+    image: velero/velero-plugin-for-aws:v1.4.0
+    imageID: docker-pullable://velero/velero-plugin-for-aws@sha256:233a46baa86db91ed3934bc41b2bd5d073dfd5b9193792b3513911164eb33527
+    lastState: {}
+    name: velero-velero-plugin-for-aws
+    ready: true
+    restartCount: 0
+    state:
+      terminated:
+        containerID: docker://6c189ef971febd616405be448caf2882ea8c47549063093f151fd0f67e9b9545
+        exitCode: 0
+        finishedAt: "2023-06-07T18:50:26Z"
+        reason: Completed
+        startedAt: "2023-06-07T18:50:26Z"
+  phase: Running
+  podIP: 10.0.156.155
+  podIPs:
+  - ip: 10.0.156.155
+  qosClass: Burstable
+  startTime: "2023-06-07T18:50:21Z"

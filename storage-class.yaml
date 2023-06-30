@@ -1,0 +1,38 @@
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass
+# metadata:
+#   name: slow22
+# provisioner: kubernetes.io/aws-ebs
+# parameters:
+#   type: io1
+#   iopsPerGB: "10"
+#   fsType: ext4
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jax-deploymnt
+  labels:
+    app: nginx2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx2
+  template:
+    metadata:
+      labels:
+        app: nginx2
+    spec:
+      containers:
+        - name: jax-pod
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nginx-volume2
+              mountPath: /data
+      volumes:
+        - name: nginx-volume2
+          persistentVolumeClaim:
+            claimName: nginx-pvc2

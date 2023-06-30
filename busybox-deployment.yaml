@@ -1,0 +1,33 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: busybox-deployment
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: busybox
+#   template:
+#     metadata:
+#       labels:
+#         app: busybox
+#     spec:
+#       containers:
+#       - name: busybox
+#         image: busybox
+#         command: ["sleep", "3600"] # Optional: Add a command to keep the container running
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dnsutils
+  namespace: first
+spec:
+  containers:
+  - name: dnsutils
+    image: registry.k8s.io/e2e-test-images/jessie-dnsutils:1.3
+    command:
+      - sleep
+      - "infinity"
+    imagePullPolicy: IfNotPresent
+  restartPolicy: Always
